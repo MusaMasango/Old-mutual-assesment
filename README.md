@@ -33,8 +33,8 @@ df.head(5)
  **Findings**
  
  - The results obtained from the pivot table show that the average income increases with an increasing level of education
- - The histogram plot shows that around 40 % of the customers earn between 0 - 55000 $\, while around 40 % - 60% of the customers earn between 55000 $\- 120000 $ with the remaining portion earning between 120000 $ - 200000 $\.
- - The Box and whisker plot shows that Single customers on average earn less than the ones who are Married, together or Divorced. Whereas the ones belonging to the 'absurd' group on average earn higher when compared to the other groups. There is an outlier zone for the groups(Absurd, Alone and Widow) over 100000 $\, and for the groups (Divorced, Married, Single and Together) over 200000 $\.
+ - The histogram plot shows that around 40 % of the customers earn between 0 - 55000 $\ $$, while around 40 % - 60% of the customers earn between 55000 $\- 120000 $ with the remaining portion earning between 120000 $ - 200000 $\.
+ - The Box and whisker plot shows that Single customers on average earn less than the ones who are Married, together or Divorced. Whereas the ones belonging to the 'absurd' group on average earn higher when compared to the other groups. There is an outlier zone for the groups(Absurd, Alone and Widow) over 100000 $\ $$, and for the groups (Divorced, Married, Single and Together) over 200000 $\ $$.
 
 **Challenges**
 
