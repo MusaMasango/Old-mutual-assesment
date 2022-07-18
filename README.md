@@ -101,6 +101,7 @@ print("Test set Accuracy: ", metrics.accuracy_score(y_test, yhat))
  - campaign
 
 **Challenge**
+
  The challenge that I encoutered when completing this task is that Since most of the data entries were categorical variables, I first had to convert them into numerical values so that I can be able to build a model.
 
  
