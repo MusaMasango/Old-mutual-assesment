@@ -11,11 +11,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
-from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing
-# import the visualization package: seaborn
-import seaborn as sns
 
 
 # #  Data Cleaning
@@ -375,276 +371,9 @@ df
 
 # A model will help us understand the exact relationship between different variables and how these variables are used to predict the result.
 
-# ## Linear regression
-
-# One example of a Data Model that we will be using is:
-# Multiple Linear Regression
-# 
-# But first we will explain what linear regression is
-# 
-# Simple Linear Regression is a method to help us understand the relationship between two variables:
-# 
-#     The predictor/independent variable (X)
-#     The response/dependent variable (that we want to predict)(Y)
-# 
-# The result of Linear Regression is a linear function that predicts the response (dependent) variable as a function of the predictor (independent) variable.
-# 
-
-# #### Linear function
-
-# Yhat = a + b  X
-# 
-# where:
-# 
-#     a refers to the intercept of the regression line, in other words: the value of Y when X is 0
-#     b refers to the slope of the regression line, in other words: the value with which Y changes when X increases by 1 unit
-# 
-# 
-
-# In[30]:
-
-
-X = df[['education']]
-Y = df['deposit']
-
-
-# In[ ]:
-
-
-
-
-
-# In[31]:
-
-
-lm=LinearRegression()
-lm
-
-
-# In[32]:
-
-
-lm.fit(X,Y)
-
-
-# In[33]:
-
-
-Yhat=lm.predict(X)
-Yhat[0:5]   
-
-
-# In[34]:
-
-
-width = 12
-height = 10
-plt.figure(figsize=(width, height))
-sns.regplot(x="education", y="deposit", data=df)
-plt.ylim(0,)
-
-
-# In[ ]:
-
-
-
-
-
-# #### Multiple Linear regression
-
-# What if we want to predict car price using more than one variable?
-# 
-# If we want to use more variables in our model to predict car price, we can use Multiple Linear Regression. Multiple Linear Regression is very similar to Simple Linear Regression, but this method is used to explain the relationship between one continuous response (dependent) variable and two or more predictor (independent) variables. Most of the real-world regression models involve multiple predictors. We will illustrate the structure by using four predictor variables, but these results can generalize to any integer:
-# 
-
-# Y: Response Variable
-#     
-# X\_1 :Predictor Variable 1
-#     
-# X\_2: Predictor Variable 2
-#     
-# X\_3: Predictor Variable 3
-#     
-# X\_4: Predictor Variable 4
-
-# a: intercept
-# 
-# b\_1 :coefficients of Variable 1
-# 
-# b\_2: coefficients of Variable 2
-# 
-# b\_3: coefficients of Variable 3
-# 
-# b\_4: coefficients of Variable 4
-
-# The equation is given by:
-
-# Yhat = a + b\_1 X\_1 + b\_2 X\_2 + b\_3 X\_3 + b\_4 X\_4
-
-# Consider the following features:
-# 
-#     age
-#     job
-#     marital
-#     education
-# 
-# Lets develop a model using these variables as the predictor variables. 
-
-# #### Let's load the modules for linear regression:
-
-# In[35]:
-
-
-from sklearn.linear_model import LinearRegression
-
-
-# #### Create the linear regression object:
-
-# In[36]:
-
-
-lm = LinearRegression()
-lm
-
-
-#  #### how can age help us predict the deposit
-
-# For this example, we want to look at how age can help us predict deposit. Using simple linear regression, we will create a linear function with "age" as the predictor variable and the "deposit" as the response variable.
-
-# In[37]:
-
-
-X = df[['age', 'job','marital', 'education']] .values
-X[0:5]
-
-
-# In[38]:
-
-
-y=df['deposit'].values
-
-Y[0:5]
-
-
-# In[39]:
-
-
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
-print ('Train set:', X_train.shape,  y_train.shape)
-print ('Test set:', X_test.shape,  y_test.shape)
-
-
-# In[40]:
-
-
-X = preprocessing.StandardScaler().fit(X).transform(X.astype(float))
-X[0:5]
-
-Fit the linear model using the four above-mentioned variables.
-# In[41]:
-
-
-lm.fit(X_train,y_train)
-
-
-# We can output a prediction:
-
-# In[42]:
-
-
-Yhat=lm.predict(X_test)
-Yhat[0:5]   
-
-
-# #### What is the value of the intercept (a)?
-
-# In[43]:
-
-
-lm.intercept_
-
-
-# #### What is the value of the slope (b1,b2,b3,b4)?
-
-# In[44]:
-
-
-lm.coef_
-
-
-# #### What is the final estimated linear model we get?
-
-# As we saw above, we should get a final linear model with the structure:
-
-# Yhat = a + b\_1 X\_1 + b\_2 X\_2 + b\_3 X\_3 + b\_4 X\_4
-
-# Plugging in the actual values we get:
-
-# Deposit = -0.09977352155323027 + 0.0033048 x age + 0.00856729 x job +  0.07705866 x marital +  0.00806728 x education
-# 
-# 
-
-# ## Model Evaluation Using Visualization
-
-# Now that we have developed some models, how do we evaluate our models and choose the best one? One way to do this is by using a visualization.
-
-# Import the visualization package, seaborn:
-
-# In[45]:
-
-
-# import the visualization package: seaborn
-import seaborn as sns
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-
-# ### Regression plot 
-# 
-
-# When it comes to multiple linear regression, an excellent way to visualize the fit of our model is by using regression plots.
-# 
-# This plot will show a combination of a scattered data points (a scatterplot), as well as the fitted linear regression line going through the data. This will give us a reasonable estimate of the relationship between the two variables, the strength of the correlation, as well as the direction (positive or negative correlation).
-# 
-
-# How do we visualize a model for Multiple Linear Regression? This gets a bit more complicated because you cannot visualize it with regression or residual plot.
-# 
-# One way to look at the fit of the model is by looking at the distribution plot. We can look at the distribution of the fitted values that result from the model and compare it to the distribution of the actual values.
-# 
-
-# First, let us make a prediction:
-
-# In[46]:
-
-
-Y_hat = lm.predict(X_test)
-
-
-# In[47]:
-
-
-width = 12
-height = 10
-plt.figure(figsize=(width, height))
-
-
-ax1 = sns.distplot(df['deposit'], hist=False, color="r", label="Actual Value")
-sns.distplot(Y_hat, hist=False, color="b", label="Fitted Values" , ax=ax1)
-
-
-plt.title('Actual vs Fitted Values for deposit')
-plt.xlabel('deposit (in dollars)')
-plt.ylabel('Proportion of Customers')
-
-plt.show()
-plt.close()
-
-
-# We can see that the fitted values deviate from the actual values since the two distributions are further apart. However, there is definitely some room for improvement.
-
 # ### Importing libraries
 
-# In[49]:
+# In[39]:
 
 
 import numpy as np
@@ -656,27 +385,26 @@ from sklearn import preprocessing
 
 # To use scikit-learn library, we have to convert the Pandas data frame to a Numpy array:
 
-# In[50]:
+# In[40]:
 
 
-X = df[['age', 'job','marital', 'education', 'duration', 'campaign']] .values
+X = df[['age', 'job','marital', 'education','duration','campaign']] .values
 X[0:5]
 
 
-# What are our labels?
-
-# In[51]:
+# In[41]:
 
 
-y = df['deposit'].values
-y[0:5]
+y=df['deposit'].values
+
+Y[0:5]
 
 
 # ## Normalize data
 
 # Data Standardization gives the data zero mean and unit variance, it is good practice, especially for algorithms such as KNN which is based on the distance of data points:
 
-# In[52]:
+# In[42]:
 
 
 X = preprocessing.StandardScaler().fit(X).transform(X.astype(float))
@@ -692,7 +420,7 @@ X[0:5]
 # This will provide a more accurate evaluation on out-of-sample accuracy because the testing dataset is not part of the dataset that has been used to train the model. It is more realistic for the real world problems.
 # 
 
-# In[53]:
+# In[43]:
 
 
 from sklearn.model_selection import train_test_split
@@ -701,22 +429,33 @@ print ('Train set:', X_train.shape,  y_train.shape)
 print ('Test set:', X_test.shape,  y_test.shape)
 
 
-# ## Classification
+# ## Classification Algorithm(K nearest neighbor)
+# 
 # 
 
+# In[ ]:
+
+
+Since we have categorical variables in our data, it is better for us to rather use a classification algorithm when building our model. On of the algorithms that we will use is the K nearest neighbor algorithm.
+
+
 # ### K nearest neighbor (KNN)
+
+# K-Nearest Neighbors is a supervised learning algorithm. Where the data is 'trained' with data points corresponding to their classification. To predict the class of a given data point, it takes into account the classes of the 'K' nearest data points and chooses the class in which the majority of the 'K' nearest data points belong to as the predicted class.
+
+# In this sense, it is important to consider the value of k. It considers the 'K' Nearest Neighbors (data points) when it predicts the classification of the test point.
 
 # ##### Import library
 
 # Classifier implementing the k-nearest neighbors vote.
 
-# In[54]:
+# In[44]:
 
 
 from sklearn.neighbors import KNeighborsClassifier
 
 
-# In[55]:
+# In[45]:
 
 
 k = 4
@@ -725,14 +464,14 @@ neigh = KNeighborsClassifier(n_neighbors = k).fit(X_train,y_train)
 neigh
 
 
-# In[56]:
+# In[46]:
 
 
 yhat = neigh.predict(X_test)
 yhat[0:5]
 
 
-# In[57]:
+# In[47]:
 
 
 #Model evaluation
@@ -741,7 +480,7 @@ print("Train set Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_tr
 print("Test set Accuracy: ", metrics.accuracy_score(y_test, yhat))
 
 
-# In[58]:
+# In[48]:
 
 
 k = 6
@@ -752,7 +491,7 @@ print('Train set accuracy: ',metrics.accuracy_score(y_train, neigh6.predict(X_tr
 print('Test set accuracy: ', metrics.accuracy_score(y_test, yhat6))
 
 
-# In[59]:
+# In[49]:
 
 
 Ks = 10
@@ -768,7 +507,9 @@ for n in range(1,Ks):
 mean_acc
 
 
-# In[60]:
+# ## Model Evaluation Using Visualization
+
+# In[50]:
 
 
 plt.plot(range(1,Ks),mean_acc,'g')
@@ -780,7 +521,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[61]:
+# In[51]:
 
 
 print( "The best accuracy was with", mean_acc.max(), "with k=", mean_acc.argmax()+1) 
@@ -799,6 +540,9 @@ print( "The best accuracy was with", mean_acc.max(), "with k=", mean_acc.argmax(
 #     duration
 #     
 #     campaign
+
+# Some of the challenges that I encoutered when completing this task include:
+# (1) Since most of the data entries were categorical variables, I first had to convert them into numerical values so that I can be able to build a model.
 
 # In[ ]:
 
